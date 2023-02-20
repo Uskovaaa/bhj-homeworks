@@ -17,6 +17,5 @@
       activateHole( activeHole );
       next();
     }, 800 );
-
   next();
 })();
