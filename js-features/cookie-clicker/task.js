@@ -2,14 +2,16 @@
 const cookie = document.getElementById('cookie');
 const clickerCounter = document.getElementById('clicker__counter');
 const clickerSpeed = document.getElementById('clicker__speed');
+const clickerMaxSpeed = document.getElementById('clicker__max-speed');
 
 let clickEnd, clickStart;
+clickerMaxSpeed.textContent = '0.00';
 
 cookie.onclick = function() {
-  cookie.width = 300;
- 
+  cookie.width = ++clickerCounter.textContent % 2 ? 250 : 200;
+
   clickEnd = Date.now();
-  clickerCounter.textContent++;
+
   if(clickerCounter.textContent == 1) {
     clickerSpeed.textContent = '0.00';
     clickStart = clickEnd;
@@ -17,11 +19,10 @@ cookie.onclick = function() {
   else {
     clickerSpeed.textContent = (1000/(clickEnd - clickStart)).toFixed(2);
     clickStart = clickEnd;
+  
+    if(clickerSpeed.textContent > clickerMaxSpeed.textContent) {
+      clickerMaxSpeed.textContent = clickerSpeed.textContent;
+    }
   }
 }
-
-
-setInterval(() => {
-  cookie.width = 200;
-}, 300);
 
