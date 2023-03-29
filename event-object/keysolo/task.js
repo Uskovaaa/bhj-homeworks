@@ -25,6 +25,23 @@ class Game {
       При неправильном вводе символа - this.fail();
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
+    
+    const body = document.querySelector('body');
+
+    let letter = this.currentSymbol.textContent;
+
+    body.addEventListener('keydown', (e) => {
+
+      if(e.key === letter){
+        this.success();
+        letter = this.currentSymbol.textContent;  
+      }
+      else {
+        this.fail();
+        letter = this.currentSymbol.textContent;
+      }
+    });
+    
   }
 
   success() {
@@ -38,16 +55,21 @@ class Game {
     }
 
     if (++this.winsElement.textContent === 10) {
-      alert('Победа!');
-      this.reset();
+      setTimeout(() => {
+        alert('Победа!');
+        this.reset();
+      }, 300);
     }
+
     this.setNewWord();
   }
 
   fail() {
-    if (++this.lossElement.textContent === 5) {
-      alert('Вы проиграли!');
-      this.reset();
+    if (++this.lossElement.textContent === 3) {
+      setTimeout(() => {
+        alert('Вы проиграли!');
+        this.reset();
+      }, 300);
     }
     this.setNewWord();
   }
@@ -91,4 +113,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
