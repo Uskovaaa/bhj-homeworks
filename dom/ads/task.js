@@ -23,9 +23,12 @@ function deleteText() {
 
 // Проверка текста для организации бесконенчого добавления текста
 function checkIndex() {
-  if(index == rotatorCaseArray.length - 1) {
+  if(rotatorCaseArray[index].nextElementSibling == null) {
     index = -1;
   }
+  // if(index == rotatorCaseArray.length - 1) {
+  //   index = -1;
+  // }
 }
 
 // Изменение цвета текста
