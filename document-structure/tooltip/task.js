@@ -5,7 +5,6 @@ tooltip.dataset.position = 'bottom';
 
 hasTooltip.forEach(e => {
   e.onclick = () => {
-    console.log(e.getBoundingClientRect().left, e.getBoundingClientRect().width);
     if(tooltip.dataset.position) {
       if(tooltip.dataset.position == 'top') {
         tooltip.style.top = e.getBoundingClientRect().top - 1.5 * e.getBoundingClientRect().height + 'px';
@@ -20,7 +19,7 @@ hasTooltip.forEach(e => {
       }
     }
     
-    tooltip.classList.add('tooltip_active');
+    tooltip.classList.toggle('tooltip_active');
     tooltip.innerHTML = e.title;
     return false;
   }
