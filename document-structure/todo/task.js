@@ -10,8 +10,12 @@ class Tasks {
   }
 
   addEvent() {
-    this.tasksBtn.addEventListener('click', () => {
+    this.tasksBtn.addEventListener('click', event => {
+      if(this.tasksInput.value.length == 0) {
+        return false;
+      }
       this.getTasks();
+      event.preventDefault();
     });
   }
 
@@ -22,30 +26,29 @@ class Tasks {
   }
 
   displayTasks(inputTask) {
-    this.tasksList.innerHTML += `
-      <div class="task">
+    this.tasksList.insertAdjacentHTML('beforeEnd',      
+    `<div class="task">
         <div class="task__title">
           ${inputTask}
         </div>
         <a href="#" class="task__remove">&times;</a>
       </div>
-    `;
+    `);
 
     this.tasksInput.value = '';
 
     const taskRemove = tasks.querySelectorAll('.task__remove');
+    
     this.removeTasks(taskRemove);
   }
 
   removeTasks(taskRemove) {
-    const task = tasks.querySelectorAll('.task');
-    const taskArr = Array.from(task);
-    const taskRemoveArr = Array.from(taskRemove);
-    
-    taskRemoveArr.forEach((item, i) => {
-      item.addEventListener('click', () => {
-        taskArr[i].remove();
-      });
+    taskRemove.forEach(el => {
+      el.onclick = () => {
+        const task = el.closest('.task');
+        task.remove();
+        return false;
+      }
     });
   }
   
