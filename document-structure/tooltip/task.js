@@ -1,9 +1,10 @@
 const tooltip = document.querySelector('.tooltip');
 const hasTooltip = document.querySelectorAll('.has-tooltip');
-
+let index = null;
 tooltip.dataset.position = 'bottom';
 
-hasTooltip.forEach(e => {
+hasTooltip.forEach((e, i) => {
+  
   e.onclick = () => {
     if(tooltip.dataset.position) {
       if(tooltip.dataset.position == 'top') {
@@ -19,10 +20,22 @@ hasTooltip.forEach(e => {
       }
     }
     
-    tooltip.classList.toggle('tooltip_active');
-    tooltip.innerHTML = e.title;
+    if(index !== i) {
+      tooltip.classList.add('tooltip_active');
+      tooltip.innerHTML = e.title;
+    }
+
+    if(index === i) {
+      tooltip.classList.toggle('tooltip_active');
+    }
+
+    index = i;
+
     return false;
+      
   }
+
+  
   
 });
 
