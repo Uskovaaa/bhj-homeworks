@@ -11,9 +11,6 @@ class Tasks {
 
   addEvent() {
     this.tasksBtn.addEventListener('click', event => {
-      if(this.tasksInput.value.length == 0) {
-        return false;
-      }
       this.getTasks();
       event.preventDefault();
     });
@@ -21,8 +18,9 @@ class Tasks {
 
   getTasks() {
     const inputTask = this.tasksInput.value.trim();
-
-    this.displayTasks(inputTask);
+    if( inputTask !== '') {
+      this.displayTasks(inputTask);
+    }
   }
 
   displayTasks(inputTask) {
@@ -36,20 +34,17 @@ class Tasks {
     `);
 
     this.tasksInput.value = '';
-
-    const taskRemove = tasks.querySelectorAll('.task__remove');
     
-    this.removeTasks(taskRemove);
+    this.removeTasks();
   }
 
-  removeTasks(taskRemove) {
-    taskRemove.forEach(el => {
-      el.onclick = () => {
-        const task = el.closest('.task');
-        task.remove();
-        return false;
-      }
-    });
+  removeTasks() {
+    this.tasks.addEventListener('click', e => {
+      if(e.target.tagName != 'A') return;
+
+      e.target.closest('.task').remove();
+      return false;
+    })
   }
   
 }
